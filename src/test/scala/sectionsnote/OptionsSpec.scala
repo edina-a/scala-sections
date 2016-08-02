@@ -1,13 +1,12 @@
 package sectionsnote
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{FunSuite, Matchers}
 
 /**
   * Created by edina on 2016. 7. 21..
   */
-class OptionsSpec extends WordSpec with Matchers {
-  "options group test" should {
-    "option" in {
+class OptionsSpec extends FunSuite with Matchers {
+    test("options") {
       val someValue: Option[String] = Some("I am wrapped in something")
       someValue should be(Some("I am wrapped in something"))
 
@@ -19,8 +18,7 @@ class OptionsSpec extends WordSpec with Matchers {
       if (flag) Some("Found value") else None
     }
 
-    "getOrElse" in {
-
+    test("getOrElse") {
       val value1 = maybeItWillReturnSomething(true)
       val value2 = maybeItWillReturnSomething(false)
 
@@ -31,7 +29,7 @@ class OptionsSpec extends WordSpec with Matchers {
       } should be("default function")
     }
 
-    "isEmpty" in {
+    test("isEmpty") {
       val value1 = maybeItWillReturnSomething(true)
       val value2 = maybeItWillReturnSomething(false)
 
@@ -39,11 +37,11 @@ class OptionsSpec extends WordSpec with Matchers {
       value2.isEmpty should be(true)
     }
 
-    "match" in {
+    test("match") {
       val someValue: Option[Double] = Some(20.0)
       val value = someValue match {
-        case Some(v) ⇒ v
-        case None ⇒ 0.0
+        case Some(v) => v
+        case None => 0.0
       }
       value should be(20.0)
       val noValue: Option[Double] = None
@@ -54,7 +52,17 @@ class OptionsSpec extends WordSpec with Matchers {
       value1 should be(0.0)
     }
 
-    "map" in {
+    test("pattern matching") {
+      val a = List(1,2,3)
+      val value = a match {
+        case x:List[Int] => x
+        case _ => 0
+      }
+
+      println(value)
+    }
+
+    test("map") {
       val number: Option[Int] = Some(3)
       val noNumber: Option[Int] = None
       val result1 = number.map(_ * 1.5)
@@ -64,7 +72,12 @@ class OptionsSpec extends WordSpec with Matchers {
       result2 should be(None)
     }
 
-    "fold" in {
+    test("map test") {
+      val lists: List[Int] = List(1,2,3)
+      println(lists.map(_ * 1.5))
+    }
+
+    test("fold") {
       val number: Option[Int] = Some(3)
       val noNumber: Option[Int] = None
       val result1 = number.fold(0)(_ * 3)
@@ -73,5 +86,4 @@ class OptionsSpec extends WordSpec with Matchers {
       result1 should be(9)
       result2 should be(0)
     }
-  }
 }
