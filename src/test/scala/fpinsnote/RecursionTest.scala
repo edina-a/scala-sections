@@ -8,6 +8,6 @@ import org.scalatest.{FunSuite, Matchers}
 class RecursionTest extends FunSuite with Matchers {
 
   test("factorial") {
-    Recursion.factorial()
+    Recursion.factorial(10)
   }
 }
