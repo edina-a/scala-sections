@@ -2,6 +2,9 @@ package sectionsnote
 
 import org.scalatest.{FunSuite, Matchers}
 
+import scala.concurrent.Future
+
+
 /**
   * Created by edinakim on 2016. 9. 28..
   */
@@ -79,4 +82,41 @@ class ImplicitSpec extends FunSuite with Matchers {
 
   }
 
+  test("실전") {
+    // 1. 암묵적인 type casting
+
+    // Edina(sul: String) => Suldina(edina: String)
+    case class Edina(sul: String)
+    case class Suldina(sul: String)
+
+    implicit def toSul(edina: Edina): Suldina = Suldina(edina.sul)
+    val suldina: Suldina = Edina("isool")
+
+    // 암묵적으로 되는 건 명시적으로도 된다!
+
+    println(suldina)
+
+    // 2. 기존 class 에 문법 추가
+    // Edina 에 name 추가
+
+    implicit class Edinana(s: Edina) {
+      def name = "에디나"
+    }
+    def e1 = Edina("막걸리")
+    e1.name == "에디나"
+
+    // 3. 암묵적인 변수를 특정 클래스에 주입
+
+    implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
+    Future {
+      println(10)
+      Thread.sleep(1000)
+      1+1
+    }(ec)
+
+    val a: Future[Int] = Future[Int](2)(ec)
+    val f: Future[Int] = Future[Int](2) // ec를 implicit 로 넣으면서 생락 가능
+    val l: List[Int] = List[Int](1+2)
+
+  }
 }
