@@ -82,6 +82,23 @@ class ImplicitSpec extends FunSuite with Matchers {
 
   }
 
+  test("parameter") {
+    def foo(a: Int): String = {
+      a + " " + a
+    }
+    val bar: Int = 10
+    // 명시적
+    println(foo(10))
+
+    // 암묵적으로 함수의 파라미터를 바인딩하고 싶다
+    def foo2(implicit a: Int): String = {
+      a + " " + a
+    }
+
+    implicit val bar2: Int = 200
+    println(foo2)
+  }
+
   test("실전") {
     // 1. 암묵적인 type casting
 
@@ -119,4 +136,27 @@ class ImplicitSpec extends FunSuite with Matchers {
     val l: List[Int] = List[Int](1+2)
 
   }
+
+  object ooo {
+    implicit val bar:Int = 10
+  }
+
+  test("example") {
+    // 1. 함수의 인자를 implicit로 받는 함수를 만든다
+    // 2. implicit 변수도 만든다
+    // 3. 실행을 해보면 된다
+    // 4. 다양한 scope에 넣어서 실행해보면 된다
+    // 5. 현재 찾을수 있는 scope에 같은 타입의 implicit이 2개 이상이면 어떻게 되나?
+
+    def foo(implicit a:Int): String = {
+      a + " ssss"
+    }
+//    implicit val p:Int = 1
+
+    import ooo.bar
+    println(foo)
+  }
+
 }
+
+
