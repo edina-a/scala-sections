@@ -23,7 +23,7 @@ class polymorphicFunction extends FunSuite with Matchers {
 
   test("poly") {
     val myArr = Array(1,2,3,4)
-    isSorted(myArr, (a: Int, b:Int) => a < b ) should be (true)
+    isSorted(myArr, (a: Int, b:Int) => a < b )
 
     // method
     def predicate1(a:Int, b:Int):Boolean = a < b
@@ -61,9 +61,9 @@ class polymorphicFunction extends FunSuite with Matchers {
 
   foo1(1,2) shouldBe 3  // 이방식은 인자를 동시에 적용시켜야만 함
 
-  // 그러나 커링을 쓰면 일부 기능을 함수로 구현해서 앞에 인자에 따라 두번째 인자를 결정할 수 있음 
-  def foo2(a:Int)(b:Int) = a + b
-  val addWithOne:(Int) => Int = foo2(1)
+  // 그러나 커링을 쓰면 일부 기능을 함수로 구현해서 앞에 인자에 따라 두번째 인자를 결정할 수 있음
+  def foo4(a:Int)(b:Int) = a + b
+  val addWithOne:(Int) => Int = foo4(1)
   addWithOne(10)  // 11
   addWithOne(11)  // 12
 
